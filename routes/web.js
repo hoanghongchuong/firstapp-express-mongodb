@@ -54,6 +54,10 @@ export default function(route, passport) {
         failureRedirect : '/login',
 		failureFlash : true,
 	}));
+	route.get('/logout', (req, res) => {
+		req.logout();
+		res.redirect('/login');
+	});
 	// route category
 	route.get('/admin', isLoggedIn, admin_controller.index);
 	route.get('/admin/category', isLoggedIn, category_controller.index);
