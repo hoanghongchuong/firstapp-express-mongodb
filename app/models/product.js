@@ -29,7 +29,9 @@ let schema = {
 		type: Date,
 		default: Date.now
 	},
-	
+	updated_at: {
+        type: Date,
+    }
 }
 
 /**

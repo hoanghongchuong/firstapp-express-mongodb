@@ -13,8 +13,6 @@ var cookieParser = require('cookie-parser');
 var multer  = require('multer');
 var session = require('express-session');
 var passport = require('passport');
-var bcrypt = require('bcrypt');
-
 // using .env file mapping to process.env
 dotenv.config()
 // init core helper functions
@@ -22,20 +20,20 @@ core_helpers()
 
 // connect database
 
-// mongoose.connect(config('database.mongo')).then(
-// 	() => {
-// 		console.log('Connect DB successfully');
-// 	},
-// 	(err) => {
-// 		console.log('Connect DB failed')
-// 	}
-// );
+mongoose.connect(config('database.mongo')).then(
+	() => {
+		console.log('Connect DB successfully');
+	},
+	(err) => {
+		console.log('Connect DB failed')
+	}
+);
 
-mongoose.connect('mongodb://admins:admins@ds059155.mlab.com:59155/firstapp').then(function() {
-	console.log('Connect DB successfully');
-}, function() {
-	console.log('Connect DB failed')
-})
+// mongoose.connect('mongodb://admins:admins@ds059155.mlab.com:59155/firstapp').then(function() {
+// 	console.log('Connect DB successfully');
+// }, function() {
+// 	console.log('Connect DB failed')
+// })
 
 let app = express()
 

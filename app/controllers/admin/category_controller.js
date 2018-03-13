@@ -1,5 +1,6 @@
 import Category from '../../models/category'
 import Product from '../../models/product'
+var moment = require('moment');
 // var Category = require('../../models/category').default;
 var mongoose = require('mongoose');
 /**
@@ -64,7 +65,8 @@ export async function edit(request, response){
 	return response.render('admin/category/edit', {
 		title: 'List Category',
 		data: category,
-		products: products
+		products: products,
+		moment: moment
 	})
 }
 export function postEdit(request, response){

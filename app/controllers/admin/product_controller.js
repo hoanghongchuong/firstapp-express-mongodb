@@ -1,7 +1,8 @@
 import Category from '../../models/category'
 import Product from '../../models/product'
 var mongoose = require('mongoose');
-var multer  = require('multer')
+var multer  = require('multer');
+var moment = require('moment');
 // export function index(request, response){
 // 	Product.find().sort({ _id: -1 }).exec((err, products) => {
 		
@@ -27,7 +28,11 @@ export async function index(request, response){
 		products: products,
 		categories: categories
 	})
-}
+}/**
+ * get create product action
+ * @param {*} request 
+ * @param {*} response 
+ */
 export async function create(request, response){
 	var cate_id = mongoose.Types.ObjectId(request.params.cateid);
 	var category = await Category.findById({_id: cate_id});
@@ -36,8 +41,12 @@ export async function create(request, response){
 		title: 'Insert giao diện',
 	});	
 }
+/**
+ * postCreate product action
+ * @param {object} request 
+ * @param {object} response 
+ */
 export function postCreate(request, response){
-	// console.log(request.params.cateid);
 	var cate_id = request.body.cate_id;
 	const newProduct = new Product({
 		name: request.body.name,
@@ -46,23 +55,11 @@ export function postCreate(request, response){
 		alias: request.body.alias,
 		numb_sort: request.body.numb_sort,		
 	});
-	// console.log(request.file);
 	newProduct.save((err, result) => {
 		if(err) console.log(err + '');
 		response.redirect('/admin/category/edit/' + cate_id);
 	});
 }
-// export function edit(request, response){
-// 	var product_id = request.params.id;
-// 	Product.findOne({_id: product_id}).populate('categoryId').exec((err, result) => {
-// 		if(err) console.log(err + '');		
-// 		response.render('admin/product/edit', {
-// 			data: result,
-// 			title: "Update"
-// 		});
-// 		// console.log(result.categoryId.name);
-// 	}
-// }
 /**
  * edit product action
  * @param  {object} request
@@ -75,15 +72,22 @@ export async function edit(request, response){
 			.findById(productId)
 			.populate({ path: 'category_id' });
 		var category = await Category.findById({_id: product.category_id._id});
+		
 		return response.render('admin/product/edit', {
 			title: 'Edit',
 			category: category,
-			product: product
+			product: product,
+			moment: moment
 		});
 	} catch (error) {
 		console.log(error);
 	}	
 }
+/**
+ * postEdit function
+ * @param {*} request 
+ * @param {*} response 
+ */
 export function postEdit(request, response){
 	let conditions = {};
 	if(mongoose.Types.ObjectId.isValid(request.body.product_id) == true){
@@ -107,6 +111,7 @@ export function postEdit(request, response){
 		newValues.image = request.body.img_current
 	}
 	newValues.numb_sort = request.body.numb_sort;
+	newValues.updated_at = Date.now();
 	const options = {
         new: true,
         multi: true

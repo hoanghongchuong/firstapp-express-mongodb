@@ -21,7 +21,6 @@ var upload = multer({
 });
 
 
-
 export default function(route, passport) {
 	// defined routes
 	route.get('/', time_logging, home_controller.index)
