@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Trang chủ | GCO List Template</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <meta name="copyright" content="" />
+        <meta property="og:image" content="">
+        <!--link css-->
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <!--Jquery library-->
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+    </head>
+    <body>
+        <section class="wrapper">
+            <div class="template-detail relative">
+                <div class="image-template">
+                    <img src="images/template/index.jpg" alt="" title="">
+                </div>
+                <a href="" class="prev" title="Giao diện trước"></a>
+                <a href="" class="next" title="Giao diện sau"></a>
+            </div>
+            <div class="template-nav">
+                <div class="fixed-menu">
+                    <a href="" title="">Tất cả</a>
+                    <a href="" title="">1 Gotrangtri.vn - Giao dien trang chu</a>
+                    <a href="" title="">2 Đăng ký</a>
+                    <a href="" title="">3 Thông báo đăng ký xong</a>
+                    <a href="" title="">4 Đăng nhập</a>
+                    <a href="" title="">5 Khách hàng-  Thông tin tài khoản menu</a>
+                    <a href="" title="">6 Khách hàng - Bắt đầu chiến dịch - Chia sẻ - Hỏi đáp</a>
+                    <a href="" title="">8 Khách hàng - Bắt đầu chiến dịch - Dự án mới</a>
+                    <a href="" title="">9 Khách hàng - Bắt đầu chiến dịch - Dự án mới</a>
+                    <a href="" title="">10 Khách hàng - Bắt đầu chiến dịch - Dự án mới</a>
+                    <a href="" title="">11 Khách hàng - Bắt đầu chiến dịch - Dự án mới</a>
+                </div>
+            </div>
+        </section>
+
+        <script type="text/javascript">
+            function ResizeMemuMain() {
+                jQuery(".subs>.subsContent>a").appendTo(".fixed-menu");
+                jQuery(".subs").remove();
+
+                var fixWidth = jQuery(".fixed-menu").outerWidth() - 30;
+                var listLi = jQuery(".fixed-menu>a");
+
+                var cWidth = 0;
+                var iMax = 0;
+                for (var i = 0; i < listLi.length; i++) {
+                    cWidth += jQuery(listLi[i]).outerWidth();
+                    if (cWidth > fixWidth) {
+                        iMax = i;
+                        break;
+                    }
+                }
+
+                if (iMax > 0) {
+                    var li2 = "<div class='subs-menu' onclick=jQuery('.subsContent').show() ><span>Xem thêm (<span id='countMore'>-</span>)</span><div class='subsContent'></div></div>";
+                    jQuery(li2).appendTo(".fixed-menu");
+
+                    var countMore = 0;
+                    for (var i = iMax; i < listLi.length; i++) {
+                        countMore++;
+                        jQuery(listLi[i]).appendTo(".subsContent");
+                    }
+                    jQuery("#countMore").html(countMore);
+                }
+            }
+
+            ResizeMemuMain();
+            jQuery(window).resize(function() {
+                ResizeMemuMain();
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,17 @@
+<section class="wrapper">
+    <div class="template-detail relative">
+        <div class="image-template">
+            <img src="<%= detail.image %>" alt="" title="">
+        </div>
+        <a href="" class="prev" title="Giao diện trước"></a>
+        <a href="" class="next" title="Giao diện sau"></a>
+    </div>
+    <div class="template-nav">
+        <div class="fixed-menu">
+            <a href="/project/<%= cate_id %>" title="">Tất cả</a>
+            <% for(var i = 0; i < products.length; i++) { %>
+                <a href="/detail/<%= cate_id %>/<%= products[i]._id %>" title="<%= products[i].name %>"><%= products[i].name %></a>
+            <% } %>
+        </div>
+    </div>
+</section>

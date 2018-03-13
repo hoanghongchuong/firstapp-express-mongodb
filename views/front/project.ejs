@@ -1,0 +1,24 @@
+<section class="wrapper">
+    <div class="main-wrapper">
+        <% for(var i = 0; i < products.length; i++){ %>
+            <div class="imageThumb-item">
+                <div class="imageThumb-cache">
+                    <a href="/detail/<%= category._id %>/<%= products[i]._id %>" title="" class="imgThumb">
+                        <img src="<%= products[i].image %>" alt="" title="">
+                    </a>
+                    <a href="/detail/<%= category._id %>/<%= products[i]._id %>" title="" class="nameThumb"><%= products[i].name %></a>
+                </div>
+            </div>
+        <% } %>
+        
+        
+    </div>
+    <div class="template-nav">
+        <div class="fixed-menu">
+            <a href="/project/<%= category._id %>" title="">Tất cả</a>
+            <% for(var i = 0; i < products.length; i++){ %>
+            <a href="/detail/<%= category._id %>/<%= products[i]._id %>" title="<%= products[i].name %>"><%= products[i].name %></a>
+            <% } %>            
+        </div>
+    </div>
+</section>

@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box table-responsive">
+            <div class="dropdown pull-right">
+                <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                    <i class="zmdi zmdi-more-vert"></i>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+            <h4 class="header-title m-t-0 m-b-30">
+                <span style="margin-right: 20px">Giao diện</span>
+                <a href="product/create" class="btn btn-primary waves-effect w-md waves-light m-b-5">Thêm mới</a>
+            </h4>
+            <table id="datatable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Name</th>
+                        <th>Dự án</th>
+                        <th>Ảnh</th>
+                        <th>Status</th>
+                        <th>Ngày tạo</th>
+                        <th>Action</th>
+                        
+                    </tr>
+                </thead>               
+                <tbody>
+                    <% for(var i = 0; i < products.length; i ++){ %>
+                        <tr>
+                                <td><%= i + 1 %></td>
+                                <td><%= products[i].name %></td>
+                                <td>danh mucj</td>
+                                <td><img src="" alt=""></td>
+                                <td><%= products[i].status %></td>
+                                <td><%= products[i].created_at %></td>
+                                <td>
+                                    <a href="product/edit/<%= products[i]._id %>" style="margin-right: 5px;" class="btn btn-warning">
+                                        <i class="fa fa-edit"> Edit</i>
+                                    </a>
+                                    <a href="product/delete/<%= products[i]._id %>" class="btn btn-danger">
+                                        <i class="fa fa-trash-o"> Delete</i>
+                                    </a>
+                                </td>                        
+                            </tr>      
+                    <% }  %>
+                </tbody>
+            </table>
+        </div>
+    </div><!-- end col -->
+</div> 
+<!-- end row -->
