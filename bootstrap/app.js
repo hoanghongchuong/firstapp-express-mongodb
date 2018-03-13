@@ -20,20 +20,20 @@ core_helpers()
 
 // connect database
 
-mongoose.connect(config('database.mongo')).then(
-	() => {
-		console.log('Connect DB successfully');
-	},
-	(err) => {
-		console.log('Connect DB failed')
-	}
-);
+// mongoose.connect(config('database.mongo')).then(
+// 	() => {
+// 		console.log('Connect DB successfully');
+// 	},
+// 	(err) => {
+// 		console.log('Connect DB failed')
+// 	}
+// );
 
-// mongoose.connect('mongodb://admins:admins@ds059155.mlab.com:59155/firstapp').then(function() {
-// 	console.log('Connect DB successfully');
-// }, function() {
-// 	console.log('Connect DB failed')
-// })
+mongoose.connect('mongodb://admins:admins@ds059155.mlab.com:59155/firstapp').then(function() {
+	console.log('Connect DB successfully');
+}, function() {
+	console.log('Connect DB failed')
+})
 
 let app = express()
 
