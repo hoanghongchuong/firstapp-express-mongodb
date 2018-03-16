@@ -1,5 +1,4 @@
  <!-- Page-Title -->
-
 <div class="row">
     <div class="col-sm-12">        
         <h4 class="page-title" style="text-align: center;">Edit project: "<%= data.name %>"</h4>
@@ -15,8 +14,7 @@
                     <input type="hidden" name="cateId" value="<%= data._id %>" placeholder="">
                     <input type="text" name="name" parsley-trigger="change" required
                            placeholder="Enter project name" class="form-control" value="<%= data.name %>" id="">
-                </div>  
-                            
+                </div>                            
                 <div class="form-group text-right m-b-0">
                     <button class="btn btn-primary waves-effect waves-light" type="submit">
                         Cập nhật
@@ -31,11 +29,9 @@
 <!-- end row -->
 <div class="row">
     <h4 class="header-title m-t-0 m-b-30">
-        <span style="margin-right: 20px">List giao diện</span>
-        
+        <span style="margin-right: 20px">List giao diện</span>        
         <a href="/admin/product/create/<%= data._id %>" class="btn btn-primary waves-effect w-md waves-light m-b-5">Create</a>
     </h4>
-
     <table id="datatable" class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -46,7 +42,6 @@
                 <th>Created_at</th>
                 <th>Updated_at</th>
                 <th>Action</th>
-                
             </tr>
         </thead>
         <tbody>
@@ -69,8 +64,7 @@
                         </div>
                     </td>
                 </tr>
-            <% } %>                         
-
+            <% } %>
         </tbody>
     </table>
 </div>

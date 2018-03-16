@@ -1,5 +1,6 @@
 import Category from '../../models/category'
 import Product from '../../models/product'
+import Comment from '../../models/comment'
 var mongoose = require('mongoose');
 var multer  = require('multer');
 var moment = require('moment');
@@ -72,12 +73,13 @@ export async function edit(request, response){
 			.findById(productId)
 			.populate({ path: 'category_id' });
 		var category = await Category.findById({_id: product.category_id._id});
-		
+		var comment = await Comment.findOne({product_id: productId}).sort({_id: -1});
 		return response.render('admin/product/edit', {
 			title: 'Edit',
 			category: category,
 			product: product,
-			moment: moment
+			moment: moment,
+			comment: comment
 		});
 	} catch (error) {
 		console.log(error);
@@ -118,7 +120,7 @@ export function postEdit(request, response){
 	}
 	Product.findOneAndUpdate(conditions, {$set: newValues}, options, (err, product) => {
 		response.redirect('back');
-	} );
+	});
 }
 export function deleteProduct(request, response){
 	var product_id = mongoose.Types.ObjectId(request.params.id);

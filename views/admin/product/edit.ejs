@@ -33,6 +33,10 @@
                            placeholder="Nhập tên" class="form-control" value="<%= product.name %>" id="">
                 </div>
                 <div class="form-group">
+                    <p>Bình luận</p>
+                    <textarea name="comment" id="" cols="30" rows="10" style="width: 100%"><%= comment ? comment.content : '' %></textarea>
+                </div>
+                <div class="form-group">
                     <label for="">Số thứ tự</label>
                     <input type="number" name="numb_sort" placeholder="" class="form-control" style="width: 100px" value="<%= product.numb_sort %>" id="">
                 </div>

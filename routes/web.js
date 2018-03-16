@@ -36,6 +36,7 @@ export default function(route, passport) {
 	// for not prefix
 	route.get('/project/:id', home_controller.project);
 	route.get('/detail/:cateid/:id', home_controller.detail);
+	route.post('/post-comment', home_controller.comment);
 	// route admin
 	// route.use('*', admin_authentication);
 	route.use('/admin*', function(request, response, next) {

@@ -25,15 +25,30 @@
         <link href="/admin_asset/assets/css/pages.css" rel="stylesheet" type="text/css" />
         <link href="/admin_asset/assets/css/menu.css" rel="stylesheet" type="text/css" />
         <link href="/admin_asset/assets/css/responsive.css" rel="stylesheet" type="text/css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
         <script src="/admin_asset/assets/js/modernizr.min.js"></script>
         <!--Jquery library-->
-        <script type="text/javascript" src="/front/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/front/js/jquery.min.js"></script>        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
     </head>
     <body>
         <%- include('./layout/header') -%>
         <%- body %>
         
         <%- include('./layout/footer') -%>
+        <script>
+            $(document).ready(function () {
+                $('.toggle-comment').click(function (e) {
+                    e.preventDefault();
+                    $('.customer-comment').toggleClass('show');
+                });
+
+                $('.commentnow').click(function (e) {
+                    e.preventDefault();
+                    $('.customer-comment').addClass('show');
+                })
+            })
+        </script>
         <script type="text/javascript">
             function ResizeMemuMain() {
                 jQuery(".subs>.subsContent>a").appendTo(".fixed-menu");

@@ -9,12 +9,11 @@ let schema = {
 		type: String,
 		require: true
 	},
-	status: {
-        type:[{
-            type:String,
-            enum: ['available', 'unavailable']
-        }],
-        default: ['available']
+	product_id: {
+        type: Schema.Types.ObjectId,
+    },
+    content: {
+        type: String,
     },
 	created_at: {
 		type: Date,
@@ -22,7 +21,7 @@ let schema = {
     },
     updated_at: {
         type: Date,
-        default: Date.now
+        default: Date
     }
 }
 

@@ -10,6 +10,7 @@ import core_helpers from './core_helpers'
 var flash = require('connect-flash');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
+var toastr = require('express-toastr');
 var multer  = require('multer');
 var session = require('express-session');
 var passport = require('passport');
@@ -20,20 +21,20 @@ core_helpers()
 
 // connect database
 
-// mongoose.connect(config('database.mongo')).then(
-// 	() => {
-// 		console.log('Connect DB successfully');
-// 	},
-// 	(err) => {
-// 		console.log('Connect DB failed')
-// 	}
-// );
+mongoose.connect(config('database.mongo')).then(
+	() => {
+		console.log('Connect DB successfully');
+	},
+	(err) => {
+		console.log('Connect DB failed')
+	}
+);
 
-mongoose.connect('mongodb://admins:admins@ds059155.mlab.com:59155/firstapp').then(function() {
-	console.log('Connect DB successfully');
-}, function() {
-	console.log('Connect DB failed')
-})
+// mongoose.connect('mongodb://admins:admins@ds059155.mlab.com:59155/firstapp').then(function() {
+// 	console.log('Connect DB successfully');
+// }, function() {
+// 	console.log('Connect DB failed')
+// })
 
 let app = express()
 
@@ -52,6 +53,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+app.use(toastr());
 // static files in public
 app.use('/', express.static('public'))
 // set view as ejs
@@ -61,7 +63,12 @@ app.set('view engine', 'ejs')
 // app.set('layout', true)
 // app.set('layout', 'front/layout')
 app.use(expressLayouts)
-
+// middleware toasts
+app.use(function (req, res, next)
+{
+    res.locals.toasts = req.toastr.render()
+    next()
+});
 app.use('/', function(request, response, next) {
 	app.set('layout', 'front/layout');
 	next();

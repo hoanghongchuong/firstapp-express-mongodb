@@ -1,3 +1,4 @@
+<%- toasts %>
 <section class="wrapper">
     <div class="template-detail relative">
         <div class="image-template">
@@ -15,3 +16,21 @@
         </div>
     </div>
 </section>
+<section class="customer-comment">
+    <div class="comment">
+        <a href="javascript:;" title="" class="toggle-comment"><i class="fa fa-caret-left"></i> </a>
+        <div class="comment-form">
+            <form method="POST" action="/post-comment">
+                <input type="hidden" name="product_id" value="<%= detail._id %>">
+                <textarea placeholder="Nội dung phản hồi" name="content" cols="30" rows="5"><%= comment ? comment.content : '' %>
+                </textarea>
+                <button type="submit">Gửi phản hồi</button>
+            </form>
+        </div>
+    </div>
+</section>
+<a href="" class="commentnow flex-center-center" title="Gửi phản hồi">
+    <span class="flex-center-center">
+        <i class="animated2 inflex-center-center" ><img src="/front/images/icon/i-comment.png" alt="" title="" class=""></i>
+    </span>
+</a>
