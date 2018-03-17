@@ -16,7 +16,8 @@ export async function postRegister(request, response){
 	var newUser = new User({
 		username: request.body.username,
 		email: request.body.email,
-		password: hash.generate(request.body.password)
+		password: hash.generate(request.body.password),
+		role: 1
 	});
 	newUser.save((err, result) => {
 		if(err){

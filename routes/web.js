@@ -3,6 +3,7 @@ import * as home_controller from '../app/controllers/home_controller'
 import * as admin_controller from '../app/controllers/admin_controller'
 import * as category_controller from '../app/controllers/admin/category_controller'
 import * as product_controller from '../app/controllers/admin/product_controller'
+import * as member_controller from '../app/controllers/admin/member_controller'
 import time_logging from '../app/middlewares/time_logging'
 import admin_authentication from '../app/middlewares/admin_authentication'
 
@@ -58,6 +59,10 @@ export default function(route, passport) {
 		req.logout();
 		res.redirect('/login');
 	});
+
+	route.get('/test', (req, res) => {
+		res.render('/test');
+	});
 	// route category
 	route.get('/admin', isLoggedIn, admin_controller.index);
 	route.get('/admin/category', isLoggedIn, category_controller.index);
@@ -73,8 +78,10 @@ export default function(route, passport) {
 	route.get('/admin/product/edit/:id', isLoggedIn, product_controller.edit);
 	route.post('/admin/product/edit', upload.single('imageUrl'), product_controller.postEdit);
 	route.get('/admin/product/delete/:id', isLoggedIn, product_controller.deleteProduct)
-
-	
+	//route member
+	route.get('/admin/member', isLoggedIn, member_controller.index);
+	route.get('/admin/member/create', isLoggedIn, member_controller.create);
+	route.post('/admin/member/create', isLoggedIn, member_controller.postCreate);
 }
 
 function isLoggedIn(req, res, next){

@@ -24,7 +24,7 @@
                 <input type="hidden" name="product_id" value="<%= detail._id %>">
                 <textarea placeholder="Nội dung phản hồi" name="content" cols="30" rows="5"><%= comment ? comment.content : '' %>
                 </textarea>
-                <button type="submit">Gửi phản hồi</button>
+                <button type="submit"><%= comment ? 'Cập nhật' : 'Gửi phản hồi' %></button>
             </form>
         </div>
     </div>

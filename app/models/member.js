@@ -1,39 +1,39 @@
 import model from './model'
 import { Schema } from 'mongoose'
-var bcrypt = require('bcrypt-nodejs');
 /**
  * defined schema
  * @type {Object}
  */
-let schema = {	
-    username: {
-        type: String,
-        require: true
-    },
+let schema = {
+	name: {
+		type: String,
+		require: true
+	},
 	email: {
         type: String,
-        unique: true,
         require: true
-    },
-    avatar: {
-        type: String,
     },
     password: {
         type: String,
         require: true
     },
-	role: {
-        type: Number
-    }
-	
+    category_id: {
+		type: Schema.Types.ObjectId, ref: 'category' ,
+	},
+	created_at: {
+		type: Date,
+		default: Date.now
+	},
 }
-
 
 /**
  * defined static methods
  */
 let statics = {
-	
+	// create(data) {
+	// 	this.name = data;
+	// 	return this.save();
+	// }
 }
 
 /**
@@ -43,4 +43,4 @@ let methods = {
 
 }
 
-export default model('user', schema, methods, statics)
+export default model('member', schema, methods, statics)

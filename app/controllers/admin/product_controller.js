@@ -20,9 +20,6 @@ var moment = require('moment');
  */
 export async function index(request, response){
 	let products = await Product.find().sort({_id: -1});
-	for(var i= 0; i < products.length; i++){
-		console.log(products[i].category_id);
-	}
 	let categories = await Category.find();
 	response.render('admin/product/index', {
 		title: 'List product',
@@ -59,6 +56,7 @@ export function postCreate(request, response){
 	newProduct.save((err, result) => {
 		if(err) console.log(err + '');
 		response.redirect('/admin/category/edit/' + cate_id);
+		// response.redirect('back');
 	});
 }
 /**

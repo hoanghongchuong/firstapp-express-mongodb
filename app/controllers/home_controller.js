@@ -50,15 +50,12 @@ export async function comment(req, res){
 	let comment = await Comment.findById({_id: product_id});
 	let newValues = new Comment({
 		content: req.body.content,
-		product_id: product_id
+		product_id: product_id,
+		updated_at: Date.now()
 	});
-	// console.log(newValues);
-	// return 1;
 	newValues.save((err, result) => {
 		if(err) console.log(err + '');
-		// req.flash('mess', 'Gửi phản hồi thành công!');
-		req.toastr.success('Gửi phản hồi thành công');
-		
+		req.toastr.success('Gửi phản hồi thành công');		
 		res.redirect('back');
 	});
 }

@@ -2,7 +2,6 @@ var passport = require('passport');
 var bcrypt = require('bcrypt');
 var hash  = require('password-hash');
 var LocalStrategy = require('passport-local').Strategy;
-// var User = require('../app/models/user');
 import User from '../app/models/user'
 module.exports = function(passport){
     passport.serializeUser(function(user, done) {
@@ -18,6 +17,7 @@ module.exports = function(passport){
     passport.use('login',new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password',
+        // role: 1,
         passReqToCallback:true
     },
         function(req,email, password, done) {            
@@ -27,7 +27,7 @@ module.exports = function(passport){
                 }
                 if (!hash.verify(password, user.password)) {
                     return done(null, 'failed');
-                }                
+                }                                            
                 return done(null, user);                
             });
         }

@@ -33,7 +33,7 @@ export function index(request, response) {
 		response.render('admin/category/index',{
 			title: 'List category',
 			data: category,
-			message: request.flash('message', 'af sfsaf')			
+				
 		});
 	});	
 }
@@ -66,7 +66,7 @@ export async function edit(request, response){
 		title: 'List Category',
 		data: category,
 		products: products,
-		moment: moment
+		moment: moment,
 	})
 }
 export function postEdit(request, response){

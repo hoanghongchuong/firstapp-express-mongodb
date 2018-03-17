@@ -1,7 +1,8 @@
- <!-- Page-Title -->
+
+<!-- Page-Title -->
 <div class="row">
     <div class="col-sm-12">        
-        <h4 class="page-title" style="text-align: center;">Edit project: "<%= data.name %>"</h4>
+        <h4 class="page-title" style="text-align: center;">Dự án: "<%= data.name %>"</h4>
     </div>
 </div>
 <div class="row">
@@ -10,7 +11,7 @@
         <div class="card-box">            
             <form action="/admin/category/edit" method="post" data-parsley-validate novalidate>
                 <div class="form-group">
-                    <label for="userName">Tên*</label>
+                    <label for="userName">Tên</label>
                     <input type="hidden" name="cateId" value="<%= data._id %>" placeholder="">
                     <input type="text" name="name" parsley-trigger="change" required
                            placeholder="Enter project name" class="form-control" value="<%= data.name %>" id="">
@@ -30,18 +31,18 @@
 <div class="row">
     <h4 class="header-title m-t-0 m-b-30">
         <span style="margin-right: 20px">List giao diện</span>        
-        <a href="/admin/product/create/<%= data._id %>" class="btn btn-primary waves-effect w-md waves-light m-b-5">Create</a>
+        <a href="/admin/product/create/<%= data._id %>" class="btn btn-primary waves-effect w-md waves-light m-b-5">Thêm giao diện</a>
     </h4>
     <table id="datatable" class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>STT</th>
-                <th>Name</th>
-                <th>Image</th>
+                <th>Tên</th>
+                <th>Ảnh</th>
                 <th>Link</th>
-                <th>Created_at</th>
-                <th>Updated_at</th>
-                <th>Action</th>
+                <th>Ngày tạo</th>
+                <!-- <th>Ngày cập nhật</th> -->
+                <th>Chi tiết</th>
             </tr>
         </thead>
         <tbody>
@@ -52,14 +53,14 @@
                     <td><img src="<%= products[i].image %>" alt="" style="width: 150px; height:100px;"></td>
                     <td><a href="/detail/<%= data._id %>/<%= products[i]._id %>" target="_blank">/detail/<%= products[i]._id %></a></td>
                     <td><%= moment(products[i].created_at) %></td>
-                    <td><%= moment(products[i].updated_at) %></td>
+                    <!-- <td><%= moment(products[i].updated_at) %></td> -->
                     <td>
                         <div class="btn-group btn-group-sm">
                             <a class="btn btn-warning" style="margin-right: 5px;" href="/admin/product/edit/<%= products[i]._id %>">
-                                <i class="fa fa-edit"> Edit</i>
+                                <i class="fa fa-edit"> Chi tiết</i>
                             </a>
                             <a class="btn btn-danger" href="/admin/product/delete/<%= products[i]._id %>">
-                                <i class="fa fa-trash-o"> Delete</i>
+                                <i class="fa fa-trash-o"> Xóa</i>
                             </a>
                         </div>
                     </td>
