@@ -27,8 +27,6 @@ export default function(route, passport) {
 	route.get('/', time_logging, home_controller.index)
 
 	// router frontend
-	
-
 	// for using prefix and middleware router
 	// const adminRoutes = Router();
 	// route.use('', admin_authentication, adminRoutes)
@@ -82,10 +80,13 @@ export default function(route, passport) {
 	route.get('/admin/member', isLoggedIn, member_controller.index);
 	route.get('/admin/member/create', isLoggedIn, member_controller.create);
 	route.post('/admin/member/create', isLoggedIn, member_controller.postCreate);
+	route.get('/admin/member/edit/:id', isLoggedIn, member_controller.edit);
+	route.post('/admin/member/edit', isLoggedIn, member_controller.postEdit);
+	route.get('/admin/member/delete/:id', isLoggedIn, member_controller.deleteMember);
 }
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated())
-    return next();
+    return next();	
     res.redirect('/login');
 };

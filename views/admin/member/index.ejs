@@ -22,16 +22,16 @@
                             <td><%= i + 1 %></td>
                             <td><%= members[i].name %></td>
                             <td><%= members[i].email %></td>
-                            <td><%=  %></td>
+                            <td><%= members[i].category_id.name %></td>
                             <td>
-                                <a href="member/edit/<%= members[i]._id %>" style="margin-right: 5px;" class="btn btn-warning">
+                                <a href="/admin/member/edit/<%= members[i]._id %>" style="margin-right: 5px;" class="btn btn-warning">
                                     <i class="fa fa-edit"> Edit</i>
                                 </a>
-                                <a href="member/delete/<%= members[i]._id %>" class="btn btn-danger">
+                                <a href="/admin/member/delete/<%= members[i]._id %>" class="btn btn-danger">
                                     <i class="fa fa-trash-o"> Delete</i>
                                 </a>
                             </td>                        
-                            </tr>      
+                        </tr>      
                     <% }  %>
                 </tbody>
             </table>
