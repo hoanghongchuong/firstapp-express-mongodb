@@ -28,10 +28,28 @@ export async function project(request, response){
 		products: products
 	})
 }
+
 export async function detail(request, response) {
+	// console.log(request.session);
 	var detail = await Product.findOne({_id: request.params.id});
 	var category = await Category.findOne({_id: request.params.cateid});
 	var products = await Product.find({category_id: request.params.cateid}).sort({numb_sort: 1});
+	var next = "";
+	var pre = "";
+	
+	for(var i = 0; i < products.length; i++){
+		
+		if(products[i]._id.equals(detail._id)){
+			if(i +1  < products.length){
+				next = products[i +1]._id;
+			}
+			if(i > 0){
+				pre = products[i -1]._id;
+			}			
+			break;
+		}
+	}
+	
 	var comment = await Comment.findOne({product_id: request.params.id}).sort({_id: -1});
 	// console.log(comment);
 	return response.render('front/detail', {
@@ -40,6 +58,8 @@ export async function detail(request, response) {
 		products: products,
 		cate_id: category._id,
 		comment: comment,
+		next: next,
+		pre: pre,
 		mess: request.flash('mess')
 	});
 }

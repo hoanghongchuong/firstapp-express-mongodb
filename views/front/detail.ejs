@@ -4,8 +4,9 @@
         <div class="image-template">
             <img src="<%= detail.image %>" alt="" title="">
         </div>
-        <a href="" class="prev" title="Giao diện trước"></a>
-        <a href="" class="next" title="Giao diện sau"></a>
+        <a href="/detail/<%= cate_id %>/<%= pre ? pre : detail._id %>" class="prev" title="Giao diện trước"></a>
+        <a href="/detail/<%= cate_id %>/<%= next ? next : detail._id %>" class="next" title="Giao diện sau"></a>
+
     </div>
     <div class="template-nav">
         <div class="fixed-menu">
