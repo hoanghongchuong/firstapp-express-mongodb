@@ -57,6 +57,11 @@ export default function(route, passport) {
 		req.logout();
 		res.redirect('/login');
 	});
+
+	route.post('/customer/login', home_controller.clogin);
+
+
+
 	// route category
 	route.get('/admin', isLoggedIn, admin_controller.index);
 	route.get('/admin/category', isLoggedIn, category_controller.index);

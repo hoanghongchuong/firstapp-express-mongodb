@@ -558,20 +558,15 @@ body:hover .prev:hover,body:hover .next:hover{
     z-index: 9;
     text-decoration: none;
 }
-
 .commentnow:hover{
     background: #ff4200;
-
 }
-
 .commentnow span {
     background: #FDF2EB;
     width: 47px;
     height: 47px;
     border-radius: 50%;
-
 }
-
 .commentnow span i{
     background: #ff4200;
     color: #fff;
@@ -579,4 +574,7 @@ body:hover .prev:hover,body:hover .next:hover{
     height: 37px;
     font-size: 24px;
     border-radius: 50%;
+}
+.modal-footer, .modal-header, .modal .modal-dialog .modal-content .modal-header{
+    border-bottom: none !important;
 }

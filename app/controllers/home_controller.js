@@ -2,6 +2,7 @@ import Post from '../models/post'
 import Product from '../models/product'
 import Category from '../models/category'
 import Comment from '../models/comment'
+var passport = require('passport');
 /**
  * index action
  * @param  {object} request
@@ -20,6 +21,7 @@ export async function index(request, response) {
 	});
 }
 export async function project(request, response){
+	console.log(request.session);
 	var category = await Category.findOne({_id: request.params.id});	
 	var products = await Product.find({category_id: request.params.id}).sort({numb_sort: 1});
 	return response.render('front/project',{
@@ -30,15 +32,12 @@ export async function project(request, response){
 }
 
 export async function detail(request, response) {
-	// console.log(request.session);
 	var detail = await Product.findOne({_id: request.params.id});
 	var category = await Category.findOne({_id: request.params.cateid});
 	var products = await Product.find({category_id: request.params.cateid}).sort({numb_sort: 1});
 	var next = "";
-	var pre = "";
-	
-	for(var i = 0; i < products.length; i++){
-		
+	var pre = "";	
+	for(var i = 0; i < products.length; i++){		
 		if(products[i]._id.equals(detail._id)){
 			if(i +1  < products.length){
 				next = products[i +1]._id;
@@ -48,10 +47,8 @@ export async function detail(request, response) {
 			}			
 			break;
 		}
-	}
-	
+	}	
 	var comment = await Comment.findOne({product_id: request.params.id}).sort({_id: -1});
-	// console.log(comment);
 	return response.render('front/detail', {
 		title: detail.name,
 		detail: detail,
@@ -78,4 +75,18 @@ export async function comment(req, res){
 		req.toastr.success('Gửi phản hồi thành công');		
 		res.redirect('back');
 	});
+}
+export async function clogin(req, res, next){
+	var detail_id = req.body.detail_id;
+	console.log(req.body.cate_id);
+
+	passport.authenticate('comment', function(err, sponsor, info) {
+        var error = err || info;
+        if (error) return res.json(401, error);
+
+        req.logIn(sponsor, function(err) {
+            if (err) return res.send(err);
+            res.json(req.sponsor.profile);
+        });
+    })(req, res, next);
 }
