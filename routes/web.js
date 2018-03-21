@@ -6,7 +6,7 @@ import * as product_controller from '../app/controllers/admin/product_controller
 import * as member_controller from '../app/controllers/admin/member_controller'
 import time_logging from '../app/middlewares/time_logging'
 import admin_authentication from '../app/middlewares/admin_authentication'
-
+import * as user_controller from '../app/controllers/admin/user_controller'
 var multer = require('multer');
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -20,8 +20,6 @@ var storage = multer.diskStorage({
 var upload = multer({
     storage: storage
 });
-
-
 export default function(route, passport) {
 	// defined routes
 	route.get('/', time_logging, home_controller.index)
@@ -36,6 +34,7 @@ export default function(route, passport) {
 	route.get('/project/:id', home_controller.project);
 	route.get('/detail/:cateid/:id', home_controller.detail);
 	route.post('/post-comment', home_controller.comment);
+	route.post('/customer/login', home_controller.clogin);
 	// route admin
 	// route.use('*', admin_authentication);
 	route.use('/admin*', function(request, response, next) {
@@ -57,11 +56,6 @@ export default function(route, passport) {
 		req.logout();
 		res.redirect('/login');
 	});
-
-	route.post('/customer/login', home_controller.clogin);
-
-
-
 	// route category
 	route.get('/admin', isLoggedIn, admin_controller.index);
 	route.get('/admin/category', isLoggedIn, category_controller.index);
@@ -84,10 +78,13 @@ export default function(route, passport) {
 	route.get('/admin/member/edit/:id', isLoggedIn, member_controller.edit);
 	route.post('/admin/member/edit', isLoggedIn, member_controller.postEdit);
 	route.get('/admin/member/delete/:id', isLoggedIn, member_controller.deleteMember);
+	// route profile admin
+	route.get('/admin/profile', user_controller.index);
+	route.post('/admin/profile/edit', user_controller.update);
 }
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated())
-    return next();	
+    return next();
     res.redirect('/login');
 };

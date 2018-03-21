@@ -25,13 +25,13 @@
                 <input type="hidden" name="product_id" value="<%= detail._id %>">
                 <textarea placeholder="Nội dung phản hồi" name="content" cols="30" rows="5"><%= comment ? comment.content : '' %>
                 </textarea>
-                <button type="submit" ><%= comment ? 'Cập nhật' : 'Gửi phản hồi' %></button>
-                <!-- <button type="button" data-toggle="modal" data-target="#exampleModal" ><%= comment ? 'Cập nhật' : 'Gửi phản hồi' %></button> -->
+                <!-- <button type="submit"  ><%= comment ? 'Cập nhật' : 'Gửi phản hồi' %></button> -->
+                <button type="button" data-toggle="modal" data-target="#exampleModal" ><%= comment ? 'Cập nhật' : 'Gửi phản hồi' %></button>
             </form>
         </div>
     </div>
 </section>
-<a href="" class="commentnow flex-center-center" title="Gửi phản hồi">
+<a href="javascript:;" class="commentnow flex-center-center" title="Gửi phản hồi">
     <span class="flex-center-center">
         <i class="animated2 inflex-center-center" ><img src="/front/images/icon/i-comment.png" alt="" title="" class=""></i>
     </span>
@@ -46,14 +46,14 @@
         <input type="hidden" name="detail_id" value="<%= detail._id %>">
         <input type="hidden" name="cate_id" value="<%= cate_id %>">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Đăng nhập</h5>
+            <h3 class="modal-title" id="exampleModalLabel">Đăng nhập</h3>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
-        <input type="text" name="email" placeholder="email" class="form-control"> <br>
-        <input type="text" name="password" placeholder="password" class="form-control">
+            <input type="text" name="email" placeholder="email" class="form-control"> <br>
+            <input type="text" name="password" placeholder="password" class="form-control">
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

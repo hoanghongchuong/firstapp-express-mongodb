@@ -21,7 +21,6 @@ export async function index(request, response) {
 	});
 }
 export async function project(request, response){
-	console.log(request.session);
 	var category = await Category.findOne({_id: request.params.id});	
 	var products = await Product.find({category_id: request.params.id}).sort({numb_sort: 1});
 	return response.render('front/project',{
@@ -36,7 +35,7 @@ export async function detail(request, response) {
 	var category = await Category.findOne({_id: request.params.cateid});
 	var products = await Product.find({category_id: request.params.cateid}).sort({numb_sort: 1});
 	var next = "";
-	var pre = "";	
+	var pre = "";
 	for(var i = 0; i < products.length; i++){		
 		if(products[i]._id.equals(detail._id)){
 			if(i +1  < products.length){
@@ -47,7 +46,8 @@ export async function detail(request, response) {
 			}			
 			break;
 		}
-	}	
+	}
+
 	var comment = await Comment.findOne({product_id: request.params.id}).sort({_id: -1});
 	return response.render('front/detail', {
 		title: detail.name,
@@ -60,9 +60,21 @@ export async function detail(request, response) {
 		mess: request.flash('mess')
 	});
 }
-
-export async function comment(req, res){
-	
+export async function clogin(req, res, next){
+	var detail_id = req.body.detail_id;
+	var cate_id = req.body.cate_id;
+	passport.authenticate('comment', function(err, sponsor, info) {
+        var error = err || info;
+		if (error) return res.json(401, error);
+        req.logIn(sponsor, function(err) {
+			if (err) return res.send(err);
+			// console.log(req.user);
+			// res.redirect('back');
+            res.json(req.sponsor.profile);
+        });
+	})(req, res, next);
+}
+export async function comment(req, res){	
 	let product_id = req.body.product_id;
 	let comment = await Comment.findById({_id: product_id});
 	let newValues = new Comment({
@@ -75,18 +87,4 @@ export async function comment(req, res){
 		req.toastr.success('Gửi phản hồi thành công');		
 		res.redirect('back');
 	});
-}
-export async function clogin(req, res, next){
-	var detail_id = req.body.detail_id;
-	console.log(req.body.cate_id);
-
-	passport.authenticate('comment', function(err, sponsor, info) {
-        var error = err || info;
-        if (error) return res.json(401, error);
-
-        req.logIn(sponsor, function(err) {
-            if (err) return res.send(err);
-            res.json(req.sponsor.profile);
-        });
-    })(req, res, next);
 }
