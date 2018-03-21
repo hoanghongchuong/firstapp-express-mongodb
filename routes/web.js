@@ -31,10 +31,16 @@ export default function(route, passport) {
 	// adminRoutes.get('/', admin_controller.index)
 
 	// for not prefix
+	route.get('/customer/login', home_controller.login)
 	route.get('/project/:id', home_controller.project);
 	route.get('/detail/:cateid/:id', home_controller.detail);
-	route.post('/post-comment', home_controller.comment);
-	route.post('/customer/login', home_controller.clogin);
+	route.post('/post-comment', isCustomer, home_controller.comment);
+	route.post('/customer/login', passport.authenticate('customer', {
+		successRedirect : '/',
+        failureRedirect : '/customer/login',
+		failureFlash : true,
+	}));
+	// route.post('/customer/login', home_controller.clogin);
 	// route admin
 	// route.use('*', admin_authentication);
 	route.use('/admin*', function(request, response, next) {
@@ -57,34 +63,46 @@ export default function(route, passport) {
 		res.redirect('/login');
 	});
 	// route category
-	route.get('/admin', isLoggedIn, admin_controller.index);
-	route.get('/admin/category', isLoggedIn, category_controller.index);
-	route.get('/admin/category/create', isLoggedIn, category_controller.create);
-	route.post('/admin/category/create', isLoggedIn, category_controller.postCreate);
-	route.get('/admin/category/edit/:id', isLoggedIn, category_controller.edit);
-	route.post('/admin/category/edit', isLoggedIn, category_controller.postEdit);
-	route.get('/admin/category/delete/:id', isLoggedIn, category_controller.deleteCategory);
+	route.get('/admin', isAdmin, admin_controller.index);
+	route.get('/admin/category', isAdmin, category_controller.index);
+	route.get('/admin/category/create', isAdmin, category_controller.create);
+	route.post('/admin/category/create', isAdmin, category_controller.postCreate);
+	route.get('/admin/category/edit/:id', isAdmin, category_controller.edit);
+	route.post('/admin/category/edit', isAdmin, category_controller.postEdit);
+	route.get('/admin/category/delete/:id', isAdmin, category_controller.deleteCategory);
 	// route product
-	route.get('/admin/product', isLoggedIn, product_controller.index);
-	route.get('/admin/product/create/:cateid', isLoggedIn, product_controller.create);
+	route.get('/admin/product', isAdmin, product_controller.index);
+	route.get('/admin/product/create/:cateid', isAdmin, product_controller.create);
 	route.post('/admin/product/create',upload.single('imageUrl'), product_controller.postCreate);
-	route.get('/admin/product/edit/:id', isLoggedIn, product_controller.edit);
+	route.get('/admin/product/edit/:id', isAdmin, product_controller.edit);
 	route.post('/admin/product/edit', upload.single('imageUrl'), product_controller.postEdit);
-	route.get('/admin/product/delete/:id', isLoggedIn, product_controller.deleteProduct)
+	route.get('/admin/product/delete/:id', isAdmin, product_controller.deleteProduct)
 	//route member
-	route.get('/admin/member', isLoggedIn, member_controller.index);
-	route.get('/admin/member/create', isLoggedIn, member_controller.create);
-	route.post('/admin/member/create', isLoggedIn, member_controller.postCreate);
-	route.get('/admin/member/edit/:id', isLoggedIn, member_controller.edit);
-	route.post('/admin/member/edit', isLoggedIn, member_controller.postEdit);
-	route.get('/admin/member/delete/:id', isLoggedIn, member_controller.deleteMember);
+	route.get('/admin/member', isAdmin, member_controller.index);
+	route.get('/admin/member/create', isAdmin, member_controller.create);
+	route.post('/admin/member/create', isAdmin, member_controller.postCreate);
+	route.get('/admin/member/edit/:id', isAdmin, member_controller.edit);
+	route.post('/admin/member/edit', isAdmin, member_controller.postEdit);
+	route.get('/admin/member/delete/:id', isAdmin, member_controller.deleteMember);
 	// route profile admin
 	route.get('/admin/profile', user_controller.index);
 	route.post('/admin/profile/edit', user_controller.update);
 }
 
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated())
+function isAdmin(req, res, next){
+    if(req.user.admin)
     return next();
     res.redirect('/login');
+};
+
+function isCustomer(req, res, next){
+    if(req.user.customer) {}
+    return next();
+
+	if (req.xhr) {
+		return res.json({
+			error: 'Not customer'
+		});
+	}
+    res.redirect('/customer/login');
 };

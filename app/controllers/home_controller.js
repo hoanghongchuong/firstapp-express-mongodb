@@ -88,3 +88,9 @@ export async function comment(req, res){
 		res.redirect('back');
 	});
 }
+
+export function login(req, res) {
+	return res.render('front/login', {
+		layout: 'front/layout/_null'
+	});
+}

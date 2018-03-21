@@ -64,16 +64,17 @@ app.set('view engine', 'ejs')
 // app.set('layout', 'front/layout')
 app.use(expressLayouts)
 // middleware toasts
-app.use(function (req, res, next)
-{
-    res.locals.toasts = req.toastr.render()
+app.use(function (req, res, next) {
+    res.locals.toasts = req.toastr.render();
     next()
 });
 app.use('/', function(request, response, next) {
+	app.locals.customer = request.user && request.user.customer ? request.user.customer : null;
 	app.set('layout', 'front/layout');
 	next();
 })
 app.use('/admin', function(request, response, next) {
+	app.locals.admin = request.user && request.user.admin ? request.user.admin : null;
 	app.set('layout', 'admin/layout');
 	next();
 });
