@@ -1,5 +1,4 @@
 <%- toasts %>
-<%= session_user %>
 <section class="wrapper">
     <div class="template-detail relative">
         <div class="image-template">
@@ -26,8 +25,8 @@
                 <input type="hidden" name="product_id" value="<%= detail._id %>">
                 <textarea placeholder="Nội dung phản hồi" name="content" cols="30" rows="5"><%= comment ? comment.content : '' %>
                 </textarea>
-                <% if(session_user) { %> 
-                <button type="submit"  ><%= comment ? 'Cập nhậtx' : 'Gửi phản hồix' %></button>
+                <% if(sessionCate) { %> 
+                <button type="submit"  ><%= comment ? 'Cập nhật' : 'Gửi phản hồi' %></button>
                 <% } else { %> 
                 <button type="button" data-toggle="modal" data-target="#exampleModal" ><%= comment ? 'Cập nhật' : 'Gửi phản hồi' %></button>
                 <% } %>

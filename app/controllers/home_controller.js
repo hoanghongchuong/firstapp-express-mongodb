@@ -39,7 +39,9 @@ export async function detail(request, response) {
 	// var session_user;
 	if(request.user){
 		var session_user = request.user.customer;
-		console.log(session_user);
+		if(request.user.customer.category_id.equals(detail.category_id)){
+			var sessionCate = request.user.customer.category_id;
+		}
 	}
 	for(var i = 0; i < products.length; i++){		
 		if(products[i]._id.equals(detail._id)){
@@ -62,6 +64,7 @@ export async function detail(request, response) {
 		next: next,
 		pre: pre,
 		session_user: session_user,
+		sessionCate: sessionCate,
 		mess: request.flash('mess')
 	});
 }
