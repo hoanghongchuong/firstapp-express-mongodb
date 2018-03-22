@@ -35,11 +35,17 @@ export default function(route, passport) {
 	route.get('/project/:id', home_controller.project);
 	route.get('/detail/:cateid/:id', home_controller.detail);
 	route.post('/post-comment', isCustomer, home_controller.comment);
-	route.post('/customer/login', passport.authenticate('customer', {
-		successRedirect : '/',
-        failureRedirect : '/customer/login',
-		failureFlash : true,
-	}));
+	// route.post('/customer/login', passport.authenticate('customer', {
+	// 	successRedirect : '/',
+    //     failureRedirect : '/customer/login',
+	// 	failureFlash : true,
+	// }));
+	route.post('/customer/login', passport.authenticate('customer'),
+		function(req, res){
+			console.log(req.user);
+			res.redirect('back');
+		}
+	);
 	// route.post('/customer/login', home_controller.clogin);
 	// route admin
 	// route.use('*', admin_authentication);

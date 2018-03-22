@@ -36,6 +36,11 @@ export async function detail(request, response) {
 	var products = await Product.find({category_id: request.params.cateid}).sort({numb_sort: 1});
 	var next = "";
 	var pre = "";
+	// var session_user;
+	if(request.user){
+		var session_user = request.user.customer;
+		console.log(session_user);
+	}
 	for(var i = 0; i < products.length; i++){		
 		if(products[i]._id.equals(detail._id)){
 			if(i +1  < products.length){
@@ -47,7 +52,6 @@ export async function detail(request, response) {
 			break;
 		}
 	}
-
 	var comment = await Comment.findOne({product_id: request.params.id}).sort({_id: -1});
 	return response.render('front/detail', {
 		title: detail.name,
@@ -57,6 +61,7 @@ export async function detail(request, response) {
 		comment: comment,
 		next: next,
 		pre: pre,
+		session_user: session_user,
 		mess: request.flash('mess')
 	});
 }
