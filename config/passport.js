@@ -33,7 +33,7 @@ module.exports = function(passport) {
         passwordField: 'password',
         // role: 1,
         passReqToCallback: true
-    }, function(email, password, done) {
+    }, function(req, email, password, done) {
         User.findOne({
             email: email
         }).then((user) => {

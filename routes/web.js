@@ -90,15 +90,16 @@ export default function(route, passport) {
 }
 
 function isAdmin(req, res, next){
-    if(req.user.admin)
-    return next();
+    if(req.user.admin) {
+		return next();
+	}
     res.redirect('/login');
 };
 
 function isCustomer(req, res, next){
-    if(req.user.customer) {}
-    return next();
-
+    if(req.user.customer) {
+		return next();
+	}
 	if (req.xhr) {
 		return res.json({
 			error: 'Not customer'
